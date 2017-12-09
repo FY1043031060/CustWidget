@@ -1,24 +1,36 @@
 #include "CWidget.h"
-
+#include <QToolButton>
+////
+/// \brief CWidget::CWidget
+/// \param parent
+///
 CWidget::CWidget(QWidget *parent) :
     QWidget(parent)
 {
     ui.setupUi(this);
     //设置窗体标题栏隐藏并设置位于顶层
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);////NOTE::界面不拖动到任务栏以下
     //可获取鼠标跟踪效果
     setMouseTracking(true);
     initTools();
 
 }
-
+////
+/// \brief CWidget::mousePressEvent
+/// \param event
+///
 void CWidget::mousePressEvent(QMouseEvent *event) {
     if(event->button() == Qt::LeftButton)
-    {      mouse_press = true;
+    {
+        mouse_press = true;
         //鼠标相对于窗体的位置（或者使用event->globalPos() - this->pos()）
         move_point = event->pos();;
     }
 }
+////
+/// \brief CWidget::mouseMoveEvent
+/// \param event
+///
 void CWidget::mouseMoveEvent(QMouseEvent *event) {
     //若鼠标左键被按下
     if(mouse_press)    {
@@ -28,11 +40,17 @@ void CWidget::mouseMoveEvent(QMouseEvent *event) {
         this->move(move_pos - move_point);
     }
 }
+////
+/// \brief CWidget::mouseReleaseEvent
+/// \param event
+///
 void CWidget::mouseReleaseEvent(QMouseEvent *event) {
     //设置鼠标为未被按下
     mouse_press = false;
 }
-#include <QToolButton>
+////
+/// \brief CWidget::initTools
+///
 void CWidget::initTools()
 {
     int width = this->width();//获取界面的宽度
